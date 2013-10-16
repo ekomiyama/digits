@@ -24,6 +24,7 @@ public class Application extends Controller {
   /**
    * Returns page1, a simple example of a second page to illustrate navigation.
    * @return The Page1.
+   * @param id
    */
   public static Result newContacts(long id) {
     ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
@@ -39,7 +40,7 @@ public class Application extends Controller {
   public static Result postContacts() {
     Form<ContactFormData> formdata = Form.form(ContactFormData.class).bindFromRequest();
     
-    if(formdata.hasErrors()) {
+    if (formdata.hasErrors()) {
       System.out.println("Errors Found");
       return badRequest(NewContacts.render(formdata));
       
@@ -50,5 +51,15 @@ public class Application extends Controller {
     Form<ContactFormData> formdata2 = Form.form(ContactFormData.class);
     return ok(NewContacts.render(formdata2));
     
+  }
+  
+  /**
+   * Deletes a contact from contact list.
+   * @param id
+   * @return
+   */
+  public static Result deleteContact(long id) {
+    ContactDB.deleteContact(id);
+    return ok(Index.render(ContactDB.getContacts()));
   }
 }

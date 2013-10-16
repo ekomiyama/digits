@@ -10,7 +10,8 @@
      <td>@contact.firstName()</td>
      <td>@contact.lastName()</td>
      <td>@contact.telephone()</td>
-     <td><a href="@routes.Application.newContacts(contact.id())">Edit</a></td>
+     <td><a class= "btn-xs btn-warning" href="@routes.Application.newContacts(contact.id())">Edit</a></td>
+     <td><a class= "btn-xs btn-danger" href="@routes.Application.deleteContact(contact.id())">Delete</a></td>
      </tr>
      }
      </table>

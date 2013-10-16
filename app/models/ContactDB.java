@@ -30,19 +30,37 @@ public class ContactDB {
     return contact;
   }
   
-  /*
-   * returns the list of contacts
-   */
+ /**
+  * returns the list of contacts
+  * @return
+  */
   public static List<Contact> getContacts() {
     return new ArrayList<>(contacts.values());
   }
   
+  /**
+   * Retrieves a contact with specific id.
+   * @param id
+   * @return
+   */
   public static Contact getContact(long id) {
     Contact contact = contacts.get(id);
-    if(contact == null) {
+    if (contact == null) {
       throw new RuntimeException("The Contact does not exist at id: " + id);
     }
     
     return contact;
+  }
+  
+  /**
+   * Deletes a contact from the map.
+   * @param id
+   */
+  public static void deleteContact(long id) {
+    if (contacts.get(id) != null) {
+    contacts.remove(id);
+    } else {
+      return;
+    }
   }
 }

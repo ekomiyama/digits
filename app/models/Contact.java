@@ -13,8 +13,12 @@ public class Contact {
   
   private long id = 0;
   
-  /*
-   * Creates a Contact object.
+  /**
+   * Creates new Contact.
+   * @param id
+   * @param firstName
+   * @param lastName
+   * @param telephone
    */
   public Contact(long id, String firstName, String lastName, String telephone) {
     this.firstName = firstName;
@@ -23,29 +27,33 @@ public class Contact {
     this.id = id;
   }
   
-  /*
-   * gets Contact firstName variable
+  /**
+   * gets Contact firstName variable.
+   * @return
    */
   public String firstName() {
     return firstName;
   }
   
-  /*
-   * gets Contact lastName variable
+  /**
+   * gets Contact lastName variable.
+   * @return
    */
   public String lastName() {
     return lastName;
   }
   
-  /*
+  /**
    * gets Contact telephone variable
+   * @return
    */
   public String telephone() {
     return telephone;
   }
   
-  /*
+  /**
    * gets Contact id variable
+   * @return
    */
   public long id() {
     return id;
