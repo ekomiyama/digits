@@ -1,20 +1,48 @@
 package models;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import views.formdata.ContactFormData;
 
+/*
+ * Creates a list in memory of contacts added to the application.
+ */
 public class ContactDB {
-
-  private static List<Contact> contacts = new ArrayList<>();
   
+  private static Map<Long, Contact> contacts = new HashMap<>();
+  
+  /*
+   * Adds a contact to the list or update existing contact
+   */
   public static Contact addContact(ContactFormData formData) {
-    Contact contact = new Contact(formData.firstName, formData.lastName, formData.telephone);
-    contacts.add(contact);
+    Contact contact;
+    if(formData.id == 0) {
+      long id = contacts.size() + 1;
+      contact = new Contact(id, formData.firstName, formData.lastName, formData.telephone);
+      contacts.put(id, contact);
+    }else {
+      contact = new Contact(formData.id, formData.firstName, formData.lastName, formData.telephone);
+      contacts.put(formData.id, contact);
+    }
+    
     return contact;
   }
   
+  /*
+   * returns the list of contacts
+   */
   public static List<Contact> getContacts() {
-    return contacts;
+    return new ArrayList<>(contacts.values());
+  }
+  
+  public static Contact getContact(long id) {
+    Contact contact = contacts.get(id);
+    if(contact == null) {
+      throw new RuntimeException("The Contact does not exist at id: " + id);
+    }
+    
+    return contact;
   }
 }

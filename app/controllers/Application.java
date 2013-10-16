@@ -25,8 +25,9 @@ public class Application extends Controller {
    * Returns page1, a simple example of a second page to illustrate navigation.
    * @return The Page1.
    */
-  public static Result newContacts() {
-    Form<ContactFormData> formdata = Form.form(ContactFormData.class);
+  public static Result newContacts(long id) {
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    Form<ContactFormData> formdata = Form.form(ContactFormData.class).fill(data);
     return ok(NewContacts.render(formdata));
     
   }
