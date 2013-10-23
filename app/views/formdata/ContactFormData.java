@@ -28,7 +28,20 @@ public class ContactFormData {
     //Do Nothing
   }
   
-  /*
+  /**
+   * @param firstName
+   * @param lastName
+   * @param telephone
+   * @param telephoneType
+   */
+  public ContactFormData(String firstName, String lastName, String telephone, String telephoneType) {
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.telephone = telephone;
+    this.telephoneType = telephoneType;
+  }
+  
+  /**
    * Creates a ContactFormData object from a Contact object parameter
    */
   public ContactFormData(Contact contact) {
