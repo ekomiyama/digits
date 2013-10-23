@@ -20,10 +20,10 @@ public class ContactDB {
     Contact contact;
     if(formData.id == 0) {
       long id = contacts.size() + 1;
-      contact = new Contact(id, formData.firstName, formData.lastName, formData.telephone);
+      contact = new Contact(id, formData.firstName, formData.lastName, formData.telephone, formData.telephoneType);
       contacts.put(id, contact);
     }else {
-      contact = new Contact(formData.id, formData.firstName, formData.lastName, formData.telephone);
+      contact = new Contact(formData.id, formData.firstName, formData.lastName, formData.telephone, formData.telephoneType);
       contacts.put(formData.id, contact);
     }
     

@@ -11,6 +11,8 @@ public class Contact {
   
   private String telephone = "";
   
+  private String telephoneType = "";
+  
   private long id = 0;
   
   /**
@@ -20,10 +22,11 @@ public class Contact {
    * @param lastName
    * @param telephone
    */
-  public Contact(long id, String firstName, String lastName, String telephone) {
+  public Contact(long id, String firstName, String lastName, String telephone, String telephoneType) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.telephone = telephone;
+    this.telephoneType = telephoneType;
     this.id = id;
   }
   
@@ -44,7 +47,7 @@ public class Contact {
   }
   
   /**
-   * gets Contact telephone variable
+   * gets Contact telephone variable.
    * @return
    */
   public String telephone() {
@@ -57,5 +60,9 @@ public class Contact {
    */
   public long id() {
     return id;
+  }
+  
+  public String telephoneType() {
+    return telephoneType;
   }
 }
