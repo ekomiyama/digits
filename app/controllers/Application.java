@@ -25,7 +25,8 @@ public class Application extends Controller {
    * @return The resulting home page. 
    */
   public static Result index() {
-    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    String user = Secured.getUser(ctx());
+    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts(user)));
   }
   
   /**
@@ -35,7 +36,8 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result newContacts(long id) {
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(id));
+    String user = Secured.getUser(ctx());;
+    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
     Form<ContactFormData> formdata = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneType.getTypes();
     return ok(NewContacts.render("NewContact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formdata, telephoneTypeMap));
@@ -49,6 +51,7 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result postContacts() {
     Form<ContactFormData> formdata = Form.form(ContactFormData.class).bindFromRequest();
+    String user = Secured.getUser(ctx());;
     if (formdata.hasErrors()) {
       System.out.println("Errors Found");
       Map<String, Boolean> telephoneTypeMap = TelephoneType.getTypes();
@@ -56,7 +59,7 @@ public class Application extends Controller {
       
     }
     ContactFormData data = formdata.get();
-    ContactDB.addContact(data);
+    ContactDB.addContact(user, data);
     Map<String, Boolean> telephoneTypeMap = TelephoneType.addType(data.telephoneType);
     System.out.println(data.firstName + " " + data.lastName + " " + data.telephone);
     Form<ContactFormData> formdata2 = Form.form(ContactFormData.class);
@@ -71,8 +74,9 @@ public class Application extends Controller {
    */
   @Security.Authenticated(Secured.class)
   public static Result deleteContact(long id) {
-    ContactDB.deleteContact(id);
-    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts()));
+    String user = Secured.getUser(ctx());
+    ContactDB.deleteContact(user, id);
+    return ok(Index.render("Home", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), ContactDB.getContacts(user)));
   }
   
   /**
