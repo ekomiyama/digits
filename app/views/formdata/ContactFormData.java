@@ -22,7 +22,7 @@ public class ContactFormData {
   public String telephoneType = "";
   
   //id field
-  public long id = 0;
+  public long id = -1;
   
   public ContactFormData() {
     //Do Nothing

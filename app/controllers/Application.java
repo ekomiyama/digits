@@ -37,7 +37,7 @@ public class Application extends Controller {
   @Security.Authenticated(Secured.class)
   public static Result newContacts(long id) {
     String user = Secured.getUser(ctx());;
-    ContactFormData data = (id == 0) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
+    ContactFormData data = (id == -1) ? new ContactFormData() : new ContactFormData(ContactDB.getContact(user, id));
     Form<ContactFormData> formdata = Form.form(ContactFormData.class).fill(data);
     Map<String, Boolean> telephoneTypeMap = TelephoneType.getTypes();
     return ok(NewContacts.render("NewContact", Secured.isLoggedIn(ctx()), Secured.getUserInfo(ctx()), formdata, telephoneTypeMap));

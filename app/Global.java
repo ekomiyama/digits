@@ -1,4 +1,5 @@
 import models.ContactDB;
+import models.UserInfo;
 import models.UserInfoDB;
 import play.Application;
 import play.GlobalSettings;
@@ -21,7 +22,7 @@ public class Global extends GlobalSettings {
     String adminPassword = Play.application().configuration().getString("digits.admin.password");
     UserInfoDB.defineAdmin("Administrator", adminEmail, adminPassword);
     
-    if(UserInfoDB.adminDefined()) {
+    if(UserInfoDB.adminDefined() && UserInfoDB.getUser(adminEmail).getContacts().isEmpty()) {
       ContactDB.addContact(adminEmail, new ContactFormData("Ghost", "Buster", "555-555-5555", "Work"));
       ContactDB.addContact(adminEmail, new ContactFormData("He", "Man", "000-000-0000", "Mobile"));
     }
